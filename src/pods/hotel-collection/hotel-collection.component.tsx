@@ -13,18 +13,19 @@ const useStyles = makeStyles({
 
 interface Props {
   hotelCollection: HotelEntityVm[];
+  onEdit: (id: string) => void;
 }
 
 export const HotelCollectionComponent: React.FunctionComponent<
   Props
 > = props => {
-  const { hotelCollection } = props;
+  const { hotelCollection, onEdit } = props;
   const classes = useStyles(props);
 
   return (
     <div className={classes.listLayout}>
       {hotelCollection.map(hotel => (
-        <HotelCard key={hotel.id} hotel={hotel} />
+        <HotelCard key={hotel.id} hotel={hotel} onEdit={()=>onEdit(hotel.id)}/>
       ))}
     </div>
   );

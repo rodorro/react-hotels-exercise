@@ -17,6 +17,7 @@ import {
 
 interface Props {
   hotel: HotelEntityVm;
+  onEdit: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 // Todo there are some harcoded styles move them to class styles
 export const HotelCard: React.FunctionComponent<Props> = props => {
-  const { hotel } = props;
+  const { hotel, onEdit } = props;
   const classes = useStyles(props);
 
   return (
@@ -62,7 +63,7 @@ export const HotelCard: React.FunctionComponent<Props> = props => {
         </div>
       </CardContent>
       <CardActions>
-        <IconButton aria-label="Add to favorites">
+        <IconButton aria-label="Add to favorites" onClick={onEdit}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="Share">

@@ -19,6 +19,10 @@ const useHotelCollection = () => {
   return { hotelCollection, loadHotelCollection };
 };
 
+const handleEdit = (id: string) => {
+  alert(id);
+}
+
 export const HotelCollectionContainer = () => {
   const { hotelCollection, loadHotelCollection } = useHotelCollection();
 
@@ -26,5 +30,5 @@ export const HotelCollectionContainer = () => {
     loadHotelCollection();
   }, []);
 
-  return <HotelCollectionComponent hotelCollection={hotelCollection} />;
+  return <HotelCollectionComponent hotelCollection={hotelCollection} onEdit={handleEdit}/>;
 };
