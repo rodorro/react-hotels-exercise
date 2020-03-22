@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { HotelEntityVm } from './hotel-edit.vm';
 
 const useStyles = makeStyles({
     listLayout: {
@@ -10,14 +11,13 @@ const useStyles = makeStyles({
   });
 
   interface Props {
-    // hotelCollection: HotelEntityVm[];
-    // onEdit: (id: string) => void;
+    hotel: HotelEntityVm;
   }
 
 export const HotelEditComponent: React.FunctionComponent<Props> = props => {
-//   const { hotelCollection, onEdit } = props;
+  const { hotel } = props;
   const classes = useStyles(props);
-    console.log("LLEGO");
+
   return (
     <div className={classes.listLayout}>
         <h2>ESTOY AQUI</h2>
