@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { HotelEditComponent } from './hotel-edit.component';
 import { HotelEntityVm } from './hotel-edit.vm';
-import { getHotel } from './hotel-edit.api';
 import { mapFromApiToVm } from './hotel-edit.mapper';
 import { getHotelCollection } from 'pods/hotel-collection/hotel-collection.api';
 import { useParams } from 'react-router-dom';
