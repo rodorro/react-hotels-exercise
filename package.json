@@ -32,6 +32,8 @@
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "final-form": "^4.18.5",
+    "lc-form-validation": "^2.0.0",
+    "material-ui-rating": "^4.2.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-final-form": "^6.3.0",

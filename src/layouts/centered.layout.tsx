@@ -1,6 +1,5 @@
 import * as React from "react";
 
-// TODO (next examples): move style to CSS in JS
 export const CenteredLayout: React.FunctionComponent = props => (
   <div
     style={{
