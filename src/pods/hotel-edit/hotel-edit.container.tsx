@@ -5,6 +5,7 @@ import { mapFromApiToVm } from './hotel-edit.mapper';
 import { getHotelCollection } from 'pods/hotel-collection/hotel-collection.api';
 import { useParams } from 'react-router-dom';
 import { cities } from 'core';
+import { hotelEditFormValidation } from './hotel-edit.validation';
 
 const useHotelEdit = () => {
     const [hotelEdit, setHotelEdit] = React.useState<HotelEntityVm>(createDefaultHotelEntity());
@@ -55,16 +56,16 @@ export const HotelEditContainer = () => {
           [id]: value
         });
     
-        // hotelFormValidation
-        //   .validateField(hotel, id, value)
-        //   .then(fieldValidationResult => {
-        //     if (fieldValidationResult) {
-        //       setHotelFormErrors({
-        //         ...hotelFormErrors,
-        //         [id]: fieldValidationResult
-        //       });
-        //     }
-        //   });
+        hotelEditFormValidation
+          .validateField(hotelEdit, id, value)
+          .then(fieldValidationResult => {
+            if (fieldValidationResult) {
+              setHotelEditFormErrors({
+                ...hotelEditFormErrors,
+                [id]: fieldValidationResult
+              });
+            }
+          });
     };
 
     return <HotelEditComponent hotel={hotelEdit} cities={citiesList} onChange={onChange} 

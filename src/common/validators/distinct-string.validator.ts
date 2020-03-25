@@ -1,31 +1,27 @@
 import { FieldValidationResult } from "lc-form-validation";
 
 interface CustomParams {
-  maxValue: number;
+  stringToCompare: string;
 }
 
-export const isGreaterThan = (
-  value: any,
-  vm: any,
-  customParams: CustomParams
-) => {
+export const distinctString = (value, vm, customParams: CustomParams) => {
   const paramsOk = paramsInformed(customParams);
-  const isValid = paramsOk && value > customParams.maxValue;
+  const isValid = paramsOk && value !== customParams.stringToCompare;
   const validationResult = new FieldValidationResult();
 
   validationResult.succeeded = isValid;
-  validationResult.type = "IS_GREATER_THAN";
+  validationResult.type = "DISTINCT_STRING";
   validationResult.errorMessage = isValid
     ? ""
-    : `Number must be greater than ${customParams.maxValue}`;
+    : `Please enter one selection`;
   return validationResult;
 };
 
 const paramsInformed = customParams => {
-  let paramsInformed = customParams && customParams.maxValue;
+  let paramsInformed = customParams && customParams.stringToCompare;
 
   if (!paramsInformed) {
-    console.error(`No params informed`);
+    console.error(`No string informed`);
   }
 
   return paramsInformed;

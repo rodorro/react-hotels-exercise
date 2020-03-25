@@ -3,10 +3,12 @@ export interface CitiesEntity {
   value : string;
 }
 
+export const selectCity = "Select city";
+
 export const cities: CitiesEntity[] = [
   {
-    id: "Select city",
-    value: "Select city"
+    id: selectCity,
+    value: selectCity
   },
   {
     id: "Seattle",

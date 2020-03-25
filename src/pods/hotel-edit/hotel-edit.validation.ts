@@ -3,29 +3,26 @@ import {
   ValidationConstraints,
   Validators
 } from "lc-form-validation";
-
-// import {
-//   numberValueIsGreaterThan,
-//   // stringNotEqualValue
-// } from "common/validators";
-// import { noCitySelectedLiteral } from "core";
+import { isGreaterThan } from "common/validators/number-greater-than.validator";
+import { distinctString } from "common/validators/distinct-string.validator";
+import { selectCity } from "core";
 
 const hotelEditFormValidationConstraints: ValidationConstraints = {
   fields: {
     name: [{ validator: Validators.required }],
     description: [{ validator: Validators.required }],
     rating: [
-      // {
-      //   validator: numberValueIsGreaterThan,
-      //   customParams: { maxValue: 3 }
-      // }
+      {
+        validator: isGreaterThan,
+        customParams: { maxValue: 2 }
+      }
     ],
     address: [{ validator: Validators.required }],
     city: [
-      // {
-      //   validator: stringNotEqualValue,
-      //   customParams: { stringToCompare: noCitySelectedLiteral }
-      // }
+      {
+        validator: distinctString,
+        customParams: { stringToCompare: selectCity }
+      }
     ]
   }
 };
