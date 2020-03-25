@@ -25,18 +25,6 @@ const useHotelEdit = () => {
     return { hotelEdit, setHotelEdit, loadHotel };
 };
 
-const handleSave = () => {
-    // hotelEditFormValidation.validateForm(hotel).then(formValidationResult => {
-    //   if (formValidationResult.succeeded) {
-    //     console.log("Succeeded !!! entry point to implement real save");
-    //   } else {
-    //     console.log(
-    //       "Validation field you have to reivew some fields, show a snack bar here"
-    //     );
-    //   }
-    // });
-};
-
 export const HotelEditContainer = () => {
 
     const { id } = useParams();
@@ -67,6 +55,16 @@ export const HotelEditContainer = () => {
             }
           });
     };
+
+    const handleSave = () => {
+        hotelEditFormValidation.validateForm(hotelEdit).then(result => {
+          if (result.succeeded) {
+            alert("save data")
+          } else {
+            alert("You have to inform correctly all fields");
+          }
+        });
+    };    
 
     return <HotelEditComponent hotel={hotelEdit} cities={citiesList} onChange={onChange} 
                 formErrors={hotelEditFormErrors} onSave={handleSave}/>;
