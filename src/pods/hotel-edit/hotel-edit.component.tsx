@@ -31,18 +31,21 @@ const onFieldChange = (field: string, onChange) => e => {
   onChange(field, e.target.value);
 };
 
+const onRatingFieldChange = (field: string, onChange: (field, value) => void) => value => {
+  onChange(field, value);
+};
+
 export const HotelEditComponent = (props: Props) => {
   const { hotel, cities, onChange, formErrors, onSave } = props;
   const classes = useStyles(props);
 
   return (
     <div className={classes.container}>
-        <h2>ESTOY AQUI</h2>
         <TextField
           label="Name"
           margin="normal"
           value={hotel.name}
-          onChange={onFieldChange(name, onChange)}
+          onChange={onFieldChange("name", onChange)}
         />
         <Typography variant="caption" color="error" gutterBottom={true}>
           {formErrors.name.errorMessage}
@@ -52,7 +55,7 @@ export const HotelEditComponent = (props: Props) => {
         <Rating
           value={hotel.rating}
           max={5}
-          onChange={onFieldChange(name, onChange)}
+          onChange={onRatingFieldChange("rating", onChange)}
         />
         <Typography variant="caption" color="error" gutterBottom>
           {formErrors.rating.errorMessage}
@@ -63,7 +66,7 @@ export const HotelEditComponent = (props: Props) => {
           margin="normal"
           value={hotel.city}
           select={true}
-          onChange={onFieldChange(name, onChange)}
+          onChange={onFieldChange("city", onChange)}
           disabled={false}
         >
           {cities.map(collection => (
@@ -83,7 +86,7 @@ export const HotelEditComponent = (props: Props) => {
           value={hotel.description}
           type="text"
           multiline={true}
-          onChange={onFieldChange(name, onChange)}       
+          onChange={onFieldChange("description", onChange)}       
         />
         <Typography variant="caption" color="error" gutterBottom>
           {formErrors.description.errorMessage}

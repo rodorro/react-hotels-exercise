@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { cities } from 'core';
 
 const useHotelEdit = () => {
-    const [hotel, setHotel] = React.useState<HotelEntityVm>(createDefaultHotelEntity());
+    const [hotelEdit, setHotelEdit] = React.useState<HotelEntityVm>(createDefaultHotelEntity());
   
     const loadHotel = (id: string) => {
 
@@ -15,31 +15,13 @@ const useHotelEdit = () => {
                 const hotel = result.find(hotel => hotel.id === id);
                 console.log(hotel);
                 if(hotel) {
-                    setHotel(mapFromApiToVm(hotel));
+                    setHotelEdit(mapFromApiToVm(hotel));
                 }
             }
         );
     };
   
-    return { hotel, loadHotel };
-};
-
-const onFieldChange = (id: keyof HotelEntityVm, value: any) => {
-    // setHotel({
-    //   ...hotel,
-    //   [id]: value
-    // });
-
-    // hotelFormValidation
-    //   .validateField(hotel, id, value)
-    //   .then(fieldValidationResult => {
-    //     if (fieldValidationResult) {
-    //       setHotelFormErrors({
-    //         ...hotelFormErrors,
-    //         [id]: fieldValidationResult
-    //       });
-    //     }
-    //   });
+    return { hotelEdit, setHotelEdit, loadHotel };
 };
 
 const handleSave = () => {
@@ -57,7 +39,7 @@ const handleSave = () => {
 export const HotelEditContainer = () => {
 
     const { id } = useParams();
-    const { hotel, loadHotel } = useHotelEdit();
+    const { hotelEdit, setHotelEdit, loadHotel } = useHotelEdit();
     const [hotelEditFormErrors, setHotelEditFormErrors] = React.useState<HotelEditFormErrors>(
         createDefaultHotelEditFormErrors()
     );
@@ -67,6 +49,24 @@ export const HotelEditContainer = () => {
         loadHotel(id);
     }, []);
 
-    return <HotelEditComponent hotel={hotel} cities={citiesList} onChange={onFieldChange} 
+    const onChange = (id: keyof HotelEntityVm, value: any) => {
+        setHotelEdit({
+          ...hotelEdit,
+          [id]: value
+        });
+    
+        // hotelFormValidation
+        //   .validateField(hotel, id, value)
+        //   .then(fieldValidationResult => {
+        //     if (fieldValidationResult) {
+        //       setHotelFormErrors({
+        //         ...hotelFormErrors,
+        //         [id]: fieldValidationResult
+        //       });
+        //     }
+        //   });
+    };
+
+    return <HotelEditComponent hotel={hotelEdit} cities={citiesList} onChange={onChange} 
                 formErrors={hotelEditFormErrors} onSave={handleSave}/>;
 };
