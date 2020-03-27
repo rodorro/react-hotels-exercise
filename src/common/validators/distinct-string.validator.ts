@@ -1,10 +1,10 @@
 import { FieldValidationResult } from "lc-form-validation";
 
-interface CustomParams {
+interface Params {
   stringToCompare: string;
 }
 
-export const distinctString = (value, vm, customParams: CustomParams) => {
+export const distinctString = (value, vm, customParams: Params) => {
   const paramsOk = paramsInformed(customParams);
   const isValid = paramsOk && value !== customParams.stringToCompare;
   const validationResult = new FieldValidationResult();
@@ -17,8 +17,8 @@ export const distinctString = (value, vm, customParams: CustomParams) => {
   return validationResult;
 };
 
-const paramsInformed = customParams => {
-  let paramsInformed = customParams && customParams.stringToCompare;
+const paramsInformed = params => {
+  let paramsInformed = params && params.stringToCompare;
 
   if (!paramsInformed) {
     console.error(`No string informed`);

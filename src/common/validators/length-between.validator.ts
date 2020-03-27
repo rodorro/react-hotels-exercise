@@ -1,28 +1,29 @@
 import { FieldValidationResult } from "lc-form-validation";
 
 interface Params {
-  maxValue: number;
+  minLength: number;
+  maxLength: number;
 }
 
-export const isGreaterThan = (
+export const isLengthBetween = (
   value: any,
   vm: any,
   params: Params
 ) => {
   const paramsOk = paramsInformed(params);
-  const isValid = paramsOk && value > params.maxValue;
+  const isValid = paramsOk && value.length >= params.minLength && value.length <= params.maxLength;
   const validationResult = new FieldValidationResult();
 
   validationResult.succeeded = isValid;
-  validationResult.type = "IS_GREATER_THAN";
+  validationResult.type = "IS_BETWEEN";
   validationResult.errorMessage = isValid
     ? ""
-    : `Number must be greater than ${params.maxValue}`;
+    : `Length must be into ${params.minLength} and ${params.maxLength}`;
   return validationResult;
 };
 
 const paramsInformed = params => {
-  let paramsInformed = params && params.maxValue;
+  let paramsInformed = params && params.minLength && params.maxLength;
 
   if (!paramsInformed) {
     console.error(`No params informed`);
