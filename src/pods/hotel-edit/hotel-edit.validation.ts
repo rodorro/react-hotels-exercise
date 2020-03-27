@@ -10,6 +10,7 @@ import { selectCity } from "core";
 const hotelEditFormValidationConstraints: ValidationConstraints = {
   fields: {
     name: [{ validator: Validators.required }],
+    picture: [{ validator: Validators.required }],
     description: [{ validator: Validators.required }],
     rating: [
       {

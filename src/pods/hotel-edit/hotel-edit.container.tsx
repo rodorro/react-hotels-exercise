@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { HotelEditComponent } from './hotel-edit.component';
-import { HotelEntityVm, createDefaultHotelEditFormErrors, HotelEditFormErrors, createDefaultHotelEntity } from './hotel-edit.vm';
-import { mapFromApiToVm } from './hotel-edit.mapper';
+import { 
+  HotelEntityVm, 
+  createDefaultHotelEditFormErrors, 
+  HotelEditFormErrors, 
+  createDefaultHotelEntity
+ } from './hotel-edit.vm';
+import { mapFromApiToVm, mapFromVmToApi } from './hotel-edit.mapper';
 import { getHotelCollection } from 'pods/hotel-collection/hotel-collection.api';
-import { useParams } from 'react-router-dom';
-import { cities } from 'core';
+import { useParams, RouteComponentProps, withRouter } from 'react-router-dom';
+import { cities, linkRoutes } from 'core';
 import { hotelEditFormValidation } from './hotel-edit.validation';
 
 const useHotelEdit = () => {
@@ -13,19 +18,19 @@ const useHotelEdit = () => {
     const loadHotel = (id: string) => {
 
         getHotelCollection().then(result => {
-                const hotel = result.find(hotel => hotel.id === id);
-                console.log(hotel);
-                if(hotel) {
-                    setHotelEdit(mapFromApiToVm(hotel));
-                }
+            const hotel = result.find(hotel => hotel.id === id);
+            if(hotel) {
+                setHotelEdit(mapFromApiToVm(hotel));
             }
-        );
+        });
     };
   
     return { hotelEdit, setHotelEdit, loadHotel };
 };
 
-export const HotelEditContainer = () => {
+interface Props extends RouteComponentProps {}
+
+const HotelEditContainerInner = (props : Props) => {
 
     const { id } = useParams();
     const { hotelEdit, setHotelEdit, loadHotel } = useHotelEdit();
@@ -59,7 +64,8 @@ export const HotelEditContainer = () => {
     const handleSave = () => {
         hotelEditFormValidation.validateForm(hotelEdit).then(result => {
           if (result.succeeded) {
-            alert("save data")
+            console.log(mapFromVmToApi(hotelEdit));
+            props.history.push(linkRoutes.hotelCollection);
           } else {
             alert("You have to inform correctly all fields");
           }
@@ -69,3 +75,5 @@ export const HotelEditContainer = () => {
     return <HotelEditComponent hotel={hotelEdit} cities={citiesList} onChange={onChange} 
                 formErrors={hotelEditFormErrors} onSave={handleSave}/>;
 };
+
+export const HotelEditContainer = withRouter(HotelEditContainerInner);

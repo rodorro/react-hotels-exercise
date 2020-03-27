@@ -51,6 +51,17 @@ export const HotelEditComponent = (props: Props) => {
           {formErrors.name.errorMessage}
         </Typography>
 
+        <img src={hotel.picture} />
+        <TextField
+          label="Picture"
+          margin="normal"
+          value={hotel.picture}
+          onChange={onFieldChange("picture", onChange)}
+        />
+        <Typography variant="caption" color="error" gutterBottom={true}>
+          {formErrors.picture.errorMessage}
+        </Typography>
+
         <Typography className={classes.rating} component="legend">Rating</Typography>
         <Rating
           value={hotel.rating}
